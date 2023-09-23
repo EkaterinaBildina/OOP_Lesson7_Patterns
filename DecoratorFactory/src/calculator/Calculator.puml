@@ -1,0 +1,53 @@
+@startuml
+class calculator.LogCalculableFactory {
+~ Logger logger
++ Calculable create(int)
+}
+class calculator.Log {
++ void writeLog(String)
+}
+class calculator.Main {
++ {static} void main(String[])
+}
+
+
+interface calculator.Logger {
+~ void writeLog(String)
+}
+interface calculator.ICalculableFactory {
+~ Calculable create(int)
+}
+class calculator.ViewCalculator {
+- ICalculableFactory calculableFactory
++ void run()
+- String prompt(String)
+- int promptInt(String)
+}
+class calculator.LogCalculator {
+- Calculable calculable
+- Logger logger
++ Calculable sum(int)
++ Calculable multi(int)
++ int getResult()
+}
+interface calculator.Calculable {
+~ Calculable sum(int)
+~ Calculable multi(int)
+~ int getResult()
+}
+class calculator.Calculator {
+- int primaryArg
++ Calculable sum(int)
++ Calculable multi(int)
++ int getResult()
+}
+class calculator.CalculableFactory {
++ Calculable create(int)
+}
+
+calculator.ICalculableFactory <|.. calculator.LogCalculableFactory
+calculator.Logger <|-- calculator.Log
+calculator.Calculable <|.. calculator.LogCalculator
+calculator.Calculable <|.. calculator.Calculator
+calculator.ICalculableFactory <|.. calculator.CalculableFactory
+@enduml
